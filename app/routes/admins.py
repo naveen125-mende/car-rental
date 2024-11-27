@@ -15,6 +15,7 @@ async def register(user: User_Register):
     hashed_password = bcrypt.hashpw(user.password.encode("utf-8"), bcrypt.gensalt())
     user_dict = user.dict()
     user_dict["password"] = hashed_password.decode("utf-8") 
+    user_dict.pop("conform_password")
     await admins_collection.insert_one(user_dict)
     return {"message": "User registered successfully"}
 
@@ -25,10 +26,10 @@ async def login(user: User_Login):
     if not stored_user:
         raise HTTPException(status_code=400, detail="Invalid email")
 
-    stored_password = admins_collection["user"]
+    
     if not bcrypt.checkpw(user.password.encode("utf-8"), stored_user["password"].encode("utf-8")):
         raise HTTPException(status_code=400, detail="Invalid password")
 
-    token = signJWT({"email":user.email})
+    token = signJWT(user.email)
     return {"access_token": token}
-    print("token generated")
+    

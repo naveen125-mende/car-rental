@@ -9,7 +9,7 @@ router = APIRouter()
 @router.post("/book", tags=["Booking"], dependencies=[Depends(JWTBearer())])
 async def book_car(booking: Booking):
     car = await cars_collection.find_one({"id": booking.car_id})
-    user = await users_collection.find_one({"id": booking.user_id})
+    user = await users_collection.find_one({"email": users_collection.email})
     if not car:
         raise HTTPException(status_code=404, detail="Car not found")
     if not user:
