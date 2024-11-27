@@ -1,0 +1,26 @@
+car_rental_project/
+│
+├── app/
+│   ├── auth/                     # Authentication/Authorization
+│   │   ├── auth_handler.py
+│   │   ├── auth_bearer.py
+│   ├── models/                   # Pydantic models for request/response
+│   │   ├── schemas.py
+│   ├── routes/                   # Route handlers
+│   │   ├── car_routes.py         # Car-related endpoints
+│   │   ├── booking_routes.py     # Booking-related endpoints
+│   │   ├── user_routes.py        # User-related endpoints
+│   ├── templates/                # HTML templates for the frontend
+│   │   ├── base.html
+│   │   ├── index.html
+│   │   ├── login.html
+│   │   ├── dashboard.html
+│   ├── static/                   # Static assets like CSS, JS, images
+│   │   ├── css/
+│   │   │   ├── style.css
+│   ├── database.py               # MongoDB connection logic
+│   ├── main.py                   # Application entry point
+│   └── .env                      # Environment variables
+│
+├── requirements.txt              # Project dependencies
+└── README.md                     # Project documentation

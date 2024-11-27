@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car List</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Available Cars</h1>
+        <ul id="car-list">
+            <!-- Car details will be loaded here using JavaScript -->
+        </ul>
+    </div>
+
+    <script>
+        // Fetch the car details from the API
+        fetch('/api/cars/list', {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const carList = document.getElementById("car-list");
+            if (data.cars) {
+                data.cars.forEach(car => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = `${car.name} - ${car.model} - $${car.price_per_day}/day`;
+                    carList.appendChild(listItem);
+                });
+            }
+        })
+        .catch(error => console.error('Error fetching cars:', error));
+    </script>
+</body>
+</html>
